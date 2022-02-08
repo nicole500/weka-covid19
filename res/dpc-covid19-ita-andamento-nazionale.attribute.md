@@ -2,7 +2,7 @@ Data set attributes:
 
 |name|type|num_values|distinct_count|total_count|missing_count|int_count|min|max
 |-|-|-|-|-|-|-|-|-
-|data|nominal|695|695|695|0|695|0.0|0.0
+|data|date|0|695|695|0|0|1.5825636E12|1.6425216E12
 |stato|nominal|1|1|695|0|695|0.0|0.0
 |ricoverati_con_sintomi|numeric|0|678|695|0|695|101.0|34697.0
 |terapia_intensiva|numeric|0|599|695|0|695|26.0|4068.0

@@ -4,7 +4,7 @@ Data set attributes:
 |-|-|-|-|-|-|-|-|-
 |country|nominal|223|223|71815|0|71815|0.0|0.0
 |iso_code|nominal|223|223|71815|0|71815|0.0|0.0
-|date|nominal|415|415|71815|0|71815|0.0|0.0
+|date|date|0|415|71815|0|0|1.6067772E12|1.6425468E12
 |total_vaccinations|numeric|0|36847|71815|34296|37389|0.0|2.951846E9
 |people_vaccinated|numeric|0|34781|71815|36098|35717|0.0|1.263691E9
 |people_fully_vaccinated|numeric|0|31730|71815|38880|32935|1.0|1.220584E9

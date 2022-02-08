@@ -34,16 +34,15 @@ In Knowledge Presentation, knowledge is represented to user using many knowledge
 
 # Data sets
 
-Dataset:
+## dpc-covid19-ita-andamento-nazionale
+<!--
 https://www.kaggle.com/sudalairajkumar/covid19-in-italy
+-->
 
-Dashbord: https://opendatadpc.maps.arcgis.com/apps/dashboards/b0c68bce2cce478eaac82fe38d4138b1
+[ Dashbord ](https://opendatadpc.maps.arcgis.com/apps/dashboards/b0c68bce2cce478eaac82fe38d4138b1)
+[ Raw ](https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv)
 
-Raw:
-https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv
-
-Read dataset: data/dpc-covid19-ita-andamento-nazionale.csv
-Explore data set attributes
+### Explore data set attributes data/dpc-covid19-ita-andamento-nazionale.csv
 
 |name|type|num_values|distinct_count|total_count|missing_count|int_count|min|max
 |-|-|-|-|-|-|-|-|-
@@ -73,10 +72,10 @@ Explore data set attributes
 |tamponi_test_antigenico_rapido|numeric|0|369|695|326|369|116859.0|7.9423338E7
 
 
---------
-Dataset (Fom prof dataset list):
 
-https://www.kaggle.com/gpreda/covid-world-vaccination-progress
+## country_vaccinations
+
+[dataset](https://www.kaggle.com/gpreda/covid-world-vaccination-progress)
 
 
 > Remember to change Cote d'Ivoire to Cote d_Ivoire   in order to avoid parsing CSV error:
@@ -91,7 +90,7 @@ COVID-19 Dataset by Our World in Data
 https://www.kaggle.com/gpreda/covid-world-vaccination-progress?select=country_vaccinations.csv#:~:text=country_vaccinations.-,csv,-country_vaccinations.csv%20
 
 
-Explore data set attributes data/country_vaccinations.csv
+### Explore data set attributes data/country_vaccinations.csv
 --
 
 |name|type|num_values|distinct_count|total_count|missing_count|int_count|min|max
@@ -113,7 +112,7 @@ Explore data set attributes data/country_vaccinations.csv
 |source_website|nominal|130|130|71815|694|71121|0.0|0.0
 
 
-Explore data set attributes data/country_vaccinations_by_manufacturer.csv
+### Explore data set attributes data/country_vaccinations_by_manufacturer.csv
 --
 
 |name|type|num_values|distinct_count|total_count|missing_count|int_count|min|max
@@ -128,7 +127,10 @@ Explore data set attributes data/country_vaccinations_by_manufacturer.csv
 * Try to predict the spread of COVID-19 ahead of time to take preventive measures
 * Which country is using what vaccine?
 
-![alt text](img/top-ten-country-by-vacines.png)
+
+![top-ten-country-by-vacines](img/top-ten-country-by-vacines.svg)
+
+
 
 |Location|Pfizer/BioNTech|Moderna|Oxford/AstraZeneca|Sinovac|Johnson&Johnson|Sinopharm/Beijing|Sputnik&nbsp;V|CanSino
 |-|-|-|-|-|-|-|-|-
@@ -147,3 +149,22 @@ Explore data set attributes data/country_vaccinations_by_manufacturer.csv
 * In which country the vaccination programme is more advanced?
 * Where are vaccinated more people per day?
 * But in terms of percent from entire population ?
+
+
+
+dpc   2020-02-24T18:00:00  2022-01-18T17:00:00 695  -> 694
+vacc  2020-12-27 - 2022-01-19  389 -> 395
+
+
+
+
+
+https://github.com/pcm-dpc/COVID-19/issues/864
+Per ottenere una migliore approssimazione ho utilizzato fino ad ora:
+Delta(casi totali)/Delta(nr Tamponi) - Delta(Guariti)
+
+
+
+
+
+![tasso di positività](img/Tasso-Positivita-Predict.svg)

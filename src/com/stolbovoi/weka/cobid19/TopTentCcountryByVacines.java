@@ -1,7 +1,6 @@
 package com.stolbovoi.weka.cobid19;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -29,7 +28,7 @@ public class TopTentCcountryByVacines {
 		PrintStream fileOutCSV = new PrintStream(foutNameCSV);
 		
 		
-		// data ppreparation: put all data in hash of hash like:
+		// Transform, clean: put all data in hash of hash like:
 		/*
 		{
 			  "European Union": {
@@ -75,6 +74,30 @@ public class TopTentCcountryByVacines {
 		}
 
 		
+		// Transform: Totalize
+		/*
+		   {
+			    "European Union": 762986627,
+			    "Cyprus": 1561965,
+			    "Czechia": 16650435,
+			    "Portugal": 19555468,
+			    "Iceland": 34168,
+			    "South Korea": 110913950,
+				...
+			  }
+
+			  {
+			    "Sinovac": 57047519,
+			    "Sputnik V": 3690160,
+			    "Oxford/AstraZeneca": 169465616,
+			    "Sinopharm/Beijing": 23795248,
+			    "Moderna": 494821681,
+			    "Pfizer/BioNTech": 1638903522,
+			    "CanSino": 1050638,
+			    "Johnson&Johnson": 56170112
+			  }
+		*/
+		
 		HashMap<String, Double> locationTot = new HashMap<String, Double>();
 		HashMap<String, Double> vaccineTot  = new HashMap<String, Double>();
 				
@@ -90,21 +113,14 @@ public class TopTentCcountryByVacines {
 			}
 		} 
 
-		System.out.println(locationTot);
-		System.out.println(vaccineTot);
-		
-		
-		
-		// Sort
-		
-		
+		// Sort DESC				
 		Set<Entry<String, Double>> setVaccineTot = vaccineTot.entrySet(); 		
 		Set<Entry<String, Double>> setLocationTot = locationTot.entrySet(); 		
 
 		Map<Object, Object> mapVaccineTot = this.sortMapDesc(setVaccineTot);
 		Map<Object, Object> mapLocationTot = this.sortMapDesc(setLocationTot);
 
-		// Final print Top ten country by vaccines	CSV	
+		// Execute: Final print Top ten country by vaccines	CSV	
 		System.setOut(fileOutCSV);
 		System.out.print("Location");
 		for(Object v : mapVaccineTot.keySet()) {
@@ -127,7 +143,7 @@ public class TopTentCcountryByVacines {
 		 	if (! (++i < 10)) break;
 		 }
 
-		// Final print Top ten country by vacines MD	
+		//The sane as befor, but in MD format	
 		System.setOut(fileOutMD);
 		System.out.print("|Location");
 		String s = "|-";
