@@ -31,6 +31,10 @@ In Pattern Evaluation, data patterns are identified based on some interesting me
 7. Knowledge Presentation -
 In Knowledge Presentation, knowledge is represented to user using many knowledge representation techniques.
 
+# Goal
+
+* Which country is using what vaccine? (World)
+* Try to predict the spread of COVID-19 ahead of time to take preventive measures (Italy subset)
 
 # Data sets
 
@@ -102,9 +106,6 @@ data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolame
   ~~~
 
 
-COVID-19 Dataset by Our World in Data
-https://www.kaggle.com/gpreda/covid-world-vaccination-progress?select=country_vaccinations.csv#:~:text=country_vaccinations.-,csv,-country_vaccinations.csv%20
-
 
 ### Explore data set attributes data/country_vaccinations.csv
 --
@@ -113,7 +114,7 @@ https://www.kaggle.com/gpreda/covid-world-vaccination-progress?select=country_va
 |-|-|-|-|-|-|-|-|-
 |country|nominal|223|223|71815|0|71815|0.0|0.0
 |iso_code|nominal|223|223|71815|0|71815|0.0|0.0
-|date|nominal|415|415|71815|0|71815|0.0|0.0
+|date|date|0|415|71815|0|0|1.6067772E12|1.6425468E12
 |total_vaccinations|numeric|0|36847|71815|34296|37389|0.0|2.951846E9
 |people_vaccinated|numeric|0|34781|71815|36098|35717|0.0|1.263691E9
 |people_fully_vaccinated|numeric|0|31730|71815|38880|32935|1.0|1.220584E9
@@ -127,26 +128,67 @@ https://www.kaggle.com/gpreda/covid-world-vaccination-progress?select=country_va
 |source_name|nominal|83|83|71815|0|71815|0.0|0.0
 |source_website|nominal|130|130|71815|694|71121|0.0|0.0
 
+### Sample
+
+```
+head ../data/country_vaccinations.csv               
+country,iso_code,date,total_vaccinations,people_vaccinated,people_fully_vaccinated,daily_vaccinations_raw,daily_vaccinations,total_vaccinations_per_hundred,people_vaccinated_per_hundred,people_fully_vaccinated_per_hundred,daily_vaccinations_per_million,vaccines,source_name,source_website
+Afghanistan,AFG,2021-02-22,0.0,0.0,,,,0.0,0.0,,,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-02-23,,,,,1367.0,,,,34.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-02-24,,,,,1367.0,,,,34.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-02-25,,,,,1367.0,,,,34.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-02-26,,,,,1367.0,,,,34.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-02-27,,,,,1367.0,,,,34.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-02-28,8200.0,8200.0,,,1367.0,0.02,0.02,,34.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-03-01,,,,,1580.0,,,,40.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+Afghanistan,AFG,2021-03-02,,,,,1794.0,,,,45.0,"Johnson&Johnson, Oxford/AstraZeneca, Pfizer/BioNTech, Sinopharm/Beijing",World Health Organization,https://covid19.who.int/
+```
 
 ### Explore data set attributes data/country_vaccinations_by_manufacturer.csv
---
 
 |name|type|num_values|distinct_count|total_count|missing_count|int_count|min|max
 |-|-|-|-|-|-|-|-|-
 |location|nominal|40|40|25783|0|25783|0.0|0.0
-|date|nominal|403|403|25783|0|25783|0.0|0.0
+|date|date|0|403|25783|0|0|1.6070364E12|1.6425468E12
 |vaccine|nominal|8|8|25783|0|25783|0.0|0.0
 |total_vaccinations|numeric|0|22830|25783|0|25783|0.0|5.47608975E8
 
-# Goal
+### Sample
+```
+head ../data/country_vaccinations_by_manufacturer.csv
+location,date,vaccine,total_vaccinations
+Austria,2021-01-08,Johnson&Johnson,0
+Austria,2021-01-08,Moderna,0
+Austria,2021-01-08,Oxford/AstraZeneca,0
+Austria,2021-01-08,Pfizer/BioNTech,31513
+Austria,2021-01-15,Johnson&Johnson,0
+Austria,2021-01-15,Moderna,95
+Austria,2021-01-15,Oxford/AstraZeneca,0
+Austria,2021-01-15,Pfizer/BioNTech,116840
+Austria,2021-01-22,Johnson&Johnson,0
+```
 
-* Try to predict the spread of COVID-19 ahead of time to take preventive measures
-* Which country is using what vaccine?
+# Dataset Analis
+
+* Type - Ordered Temporal Data
+* Missing data: true
+* Duplicate data: false
 
 
+
+# Goal: Which country is using what vaccine? (World)
+
+Preparation
+
+Dataset:
+  The country_vaccinations_by_manufacturer dataset have all of needed data to match the goal.
+
+Strategy:
+  Transform data in pivot table, order desc and select top 10 country.
+
+
+## Result
 ![top-ten-country-by-vacines](img/top-ten-country-by-vacines.svg)
-
-
 
 |Location|Pfizer/BioNTech|Moderna|Oxford/AstraZeneca|Sinovac|Johnson&Johnson|Sinopharm/Beijing|Sputnik&nbsp;V|CanSino
 |-|-|-|-|-|-|-|-|-
@@ -162,34 +204,27 @@ https://www.kaggle.com/gpreda/covid-world-vaccination-progress?select=country_va
 |Poland|35|3|5|0|2|0|0|0
 
 
-* In which country the vaccination programme is more advanced?
-* Where are vaccinated more people per day?
-* But in terms of percent from entire population ?
+# Goal: Try to predict the spread of COVID-19 ahead of time to take preventive measures (Italy subset)
 
 
+Preparation
 
-dpc   2020-02-24T18:00:00  2022-01-18T17:00:00 695  -> 694
-vacc  2020-12-27 - 2022-01-19  389 -> 395
+Dataset:
+  The dpc-covid19-ita-andamento-nazionale dataset have all of needed data to match the goal.
 
-
-
-
-https://github.com/pcm-dpc/COVID-19/blob/master/dati-andamento-covid19-italia.md
-
-
-https://github.com/pcm-dpc/COVID-19/issues/864
-Per ottenere una migliore approssimazione ho utilizzato fino ad ora:
-Delta(casi totali)/Delta(nr Tamponi) - Delta(Guariti)
-
-
-
-
-tasso_positivita = 100 * nuovi_positivi / Tamponi delta in percent
+Strategy:
+  Repair missing values
+  Remove unused attribute
+  Add new attribute:  tasso_positivita = 100 * nuovi_positivi / Tamponi delta in percent
+  Predict trend for 100 gg ahead with different algorithms
+  
+## Result
 
 ![tasso di positività](img/Tasso-Positivita-Predict.svg)
 
-
 ## Cost
+
+measure elapsed time  (wall clock) in ms
 
 |algorithm_name|elapsed (ms)
 |-|-
@@ -199,24 +234,8 @@ tasso_positivita = 100 * nuovi_positivi / Tamponi delta in percent
 |SMOreg|437
 
 
-----------------
 
-Goal:
-Predict a value of a given continuous* valued variable
-based on the values of other variables, assuming a linear
-or nonlinear model of dependency.
+# Notes:
 
-
-1. Dataset
-
-2. Dataset classification
-
-  Ordered Temporal Data
-
-1. Data preparation
-2. Data preprocessing
-3. Data mining
-  1. Prediction
-  2. Description
-4. Postprocessing
-5. Information
+* the graph was produced by google sheet chart
+* SMO regression may be not appropriate for this use case?
