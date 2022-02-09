@@ -137,24 +137,16 @@ public class CleanDataset {
 		// https://tech.forums.softwareag.com/t/timeseries-forecasting-weka-java-api/208229
 						
 		WekaForecaster forecaster = new WekaForecaster();
-	    forecaster.setFieldsToForecast("tasso_positivita");
-		// forecaster.setBaseForecaster(new GaussianProcesses());
-	    
+	    forecaster.setFieldsToForecast("tasso_positivita");	    
 
 	    ArrayList<Classifier> classifiers = new ArrayList<>();
 	    classifiers.add(new GaussianProcesses());	    
 	    classifiers.add(new MultilayerPerceptron());	    
 	    classifiers.add(new LinearRegression());	    
 	    classifiers.add(new SMOreg());	    
-	    
-	    
-	   //  ArrayList<ArrayList<Double>> predict = new ArrayList<ArrayList<Double>>();
-	    // ArrayList<Object> predict = new ArrayList<Object>();
-	   //  ArrayList<String> predictNames = new ArrayList<String>();
-	    // ArrayList<String> predictDate = new ArrayList<String>();
-	    
-	    
+	    	    
 	    ArrayList<Predict> predict = new ArrayList<Predict>();
+	    PrintStream stream = new PrintStream("./res/forecast.csv");
 	  	    
 	    for (Classifier function: classifiers) {
 	    	Predict p = new Predict();
@@ -164,11 +156,7 @@ public class CleanDataset {
 		    ArrayList<Double> predictDouble = new ArrayList<Double>();	    	
 		    ArrayList<String> predictDate   = new ArrayList<String>();	    	
 	    	
-	    	// Classifier f = new MultilayerPerceptron();
 			forecaster.setBaseForecaster(function);
-			// forecaster.setBaseForecaster(new MultilayerPerceptron());
-			// forecaster.setBaseForecaster(new LinearRegression());
-			// forecaster.setBaseForecaster(new SMOreg());
 			forecaster.getTSLagMaker().setTimeStampField("date");
 			forecaster.getTSLagMaker().setMinLag(7);
 			forecaster.getTSLagMaker().setMaxLag(7);
@@ -176,14 +164,16 @@ public class CleanDataset {
 			forecaster.getTSLagMaker().setAddMonthOfYear(true);
 			forecaster.getTSLagMaker().setAddQuarterOfYear(true);
 	
-			PrintStream stream = null;
+			// PrintStream stream = null;
 			List<List<NumericPrediction>> forecast = null;
-			stream = new PrintStream("./res/forecast.csv");
+			// stream = new PrintStream("./res/forecast.csv");
 	
-			forecaster.buildForecaster(dataset, stream);		
+			// forecaster.buildForecaster(dataset, stream);		
+			forecaster.buildForecaster(dataset);		
 			forecaster.primeForecaster(dataset);		
 			forecaster.setCalculateConfIntervalsForForecasts(1);
-			forecast = forecaster.forecast(100, stream);
+			// forecast = forecaster.forecast(100, stream);
+			forecast = forecaster.forecast(100);
 			
 			long finish = System.currentTimeMillis();
 			
@@ -211,11 +201,12 @@ public class CleanDataset {
 			p.setPredict(predictDouble);
 			p.setDate(predictDate);
 			predict.add(p);
-			stream.close();
+			// stream.close();
 	    }
 	    
+	    
 		
-	    PrintStream stream = new PrintStream("./res/forecast.csv");
+	    // PrintStream stream = new PrintStream("./res/forecast.csv");
   
 	    // Print result
 	    // header
@@ -244,14 +235,16 @@ public class CleanDataset {
 		    }   		
 	        stream.println(); 					
 	    }
-	    
+	   
+	    stream.close();
 	    
 	    // Cost algorithm
-	    System.out.println("algorithm_name,elapsed(ms)");
+	    stream = new PrintStream("./res/cost.md");
+	    stream.println("|algorithm_name|elapsed(ms)\n|-|-");
 	    for (int j = 0; j < predict.size(); j++) {
-	        System.out.println(predict.get(j).getName() + "," + predict.get(j).getElapsed()); 		
-	    }   		
-
+	        stream.println("|"+ predict.get(j).getName() + "|" + predict.get(j).getElapsed()); 		
+	    }
+	    stream.close();
 	}
 	
 	public static void main(String[] args) throws Exception{

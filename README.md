@@ -39,14 +39,15 @@ In Knowledge Presentation, knowledge is represented to user using many knowledge
 https://www.kaggle.com/sudalairajkumar/covid19-in-italy
 -->
 
-[ Dashbord ](https://opendatadpc.maps.arcgis.com/apps/dashboards/b0c68bce2cce478eaac82fe38d4138b1)
-[ Raw ](https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv)
+[dataset](https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv)
+, [dashbord ](https://opendatadpc.maps.arcgis.com/apps/dashboards/)
+
 
 ### Explore data set attributes data/dpc-covid19-ita-andamento-nazionale.csv
 
 |name|type|num_values|distinct_count|total_count|missing_count|int_count|min|max
 |-|-|-|-|-|-|-|-|-
-|data|nominal|695|695|695|0|695|0.0|0.0
+|data|date|0|695|695|0|0|1.5825636E12|1.6425216E12
 |stato|nominal|1|1|695|0|695|0.0|0.0
 |ricoverati_con_sintomi|numeric|0|678|695|0|695|101.0|34697.0
 |terapia_intensiva|numeric|0|599|695|0|695|26.0|4068.0
@@ -71,6 +72,21 @@ https://www.kaggle.com/sudalairajkumar/covid19-in-italy
 |tamponi_test_molecolare|numeric|0|369|695|326|369|2.8617351E7|7.8396506E7
 |tamponi_test_antigenico_rapido|numeric|0|369|695|326|369|116859.0|7.9423338E7
 
+### Sample
+
+```
+head ../data/dpc-covid19-ita-andamento-nazionale.csv
+data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_positivi,variazione_totale_positivi,nuovi_positivi,dimessi_guariti,deceduti,casi_da_sospetto_diagnostico,casi_da_screening,totale_casi,tamponi,casi_testati,note,ingressi_terapia_intensiva,note_test,note_casi,totale_positivi_test_molecolare,totale_positivi_test_antigenico_rapido,tamponi_test_molecolare,tamponi_test_antigenico_rapido
+2020-02-24T18:00:00,ITA,101,26,127,94,221,0,221,1,7,,,229,4324,,,,,,,,,
+2020-02-25T18:00:00,ITA,114,35,150,162,311,90,93,1,10,,,322,8623,,,,,,,,,
+2020-02-26T18:00:00,ITA,128,36,164,221,385,74,78,3,12,,,400,9587,,,,,,,,,
+2020-02-27T18:00:00,ITA,248,56,304,284,588,203,250,45,17,,,650,12014,,,,,,,,,
+2020-02-28T18:00:00,ITA,345,64,409,412,821,233,238,46,21,,,888,15695,,,,,,,,,
+2020-02-29T18:00:00,ITA,401,105,506,543,1049,228,240,50,29,,,1128,18661,,,,,,,,,
+2020-03-01T18:00:00,ITA,639,140,779,798,1577,528,566,83,34,,,1694,21127,,,,,,,,,
+2020-03-02T18:00:00,ITA,742,166,908,927,1835,258,342,149,52,,,2036,23345,,,,,,,,,
+2020-03-03T18:00:00,ITA,1034,229,1263,1000,2263,428,466,160,79,,,2502,25856,,,,,,,,,
+```
 
 
 ## country_vaccinations
@@ -158,6 +174,8 @@ vacc  2020-12-27 - 2022-01-19  389 -> 395
 
 
 
+https://github.com/pcm-dpc/COVID-19/blob/master/dati-andamento-covid19-italia.md
+
 
 https://github.com/pcm-dpc/COVID-19/issues/864
 Per ottenere una migliore approssimazione ho utilizzato fino ad ora:
@@ -166,5 +184,39 @@ Delta(casi totali)/Delta(nr Tamponi) - Delta(Guariti)
 
 
 
+tasso_positivita = 100 * nuovi_positivi / Tamponi delta in percent
 
 ![tasso di positività](img/Tasso-Positivita-Predict.svg)
+
+
+## Cost
+
+|algorithm_name|elapsed (ms)
+|-|-
+|GaussianProcesses|1153
+|MultilayerPerceptron|1487
+|LinearRegression|134
+|SMOreg|437
+
+
+----------------
+
+Goal:
+Predict a value of a given continuous* valued variable
+based on the values of other variables, assuming a linear
+or nonlinear model of dependency.
+
+
+1. Dataset
+
+2. Dataset classification
+
+  Ordered Temporal Data
+
+1. Data preparation
+2. Data preprocessing
+3. Data mining
+  1. Prediction
+  2. Description
+4. Postprocessing
+5. Information
