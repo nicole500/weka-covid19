@@ -217,7 +217,7 @@ Strategy:
   Remove unused attribute
   Add new attribute:  tasso_positivita = 100 * nuovi_positivi / Tamponi delta in percent
   Predict trend for 100 gg ahead with different algorithms
-  
+
 ## Result
 
 ![tasso di positività](img/Tasso-Positivita-Predict.svg)
@@ -239,3 +239,56 @@ measure elapsed time  (wall clock) in ms
 
 * the graph was produced by google sheet chart
 * SMO regression may be not appropriate for this use case?
+
+
+# program output
+
+```
+Hello Weka!
+Working Directory: /Users/nick/eclipse-workspace/weka-covid19
+
+
+**********************************
+Data set name: dpc-covid19-ita-andamento-nazionale
+Data set size: 695
+See res/dpc-covid19-ita-andamento-nazionale.attribute.md
+
+
+**********************************
+Data set name: country_vaccinations
+Data set size: 71815
+See res/country_vaccinations.attribute.md
+
+
+**********************************
+Data set name: country_vaccinations_by_manufacturer
+Data set size: 25783
+See res/country_vaccinations_by_manufacturer.attribute.md
+
+
+**********************************
+pivot
+See res/country_vaccinations_by_manufacturer.top.md
+See res/country_vaccinations_by_manufacturer.top.csv
+
+
+**********************************
+join
+We can do join!!!
+See res/join.csv
+Data set load: res/join.csv
+
+
+**********************************
+Data set name: join
+Data set size: 386
+See res/join.attribute.md
+
+
+**********************************
+predict
+See ./res/join.arff
+See ./res/forecast.csv
+See ./res/cost.md
+Bye-bye Weka!
+```
