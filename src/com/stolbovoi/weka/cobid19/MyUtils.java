@@ -195,7 +195,7 @@ public class MyUtils {
 				break;
 		}
 
-		// The sane as befor, but in MD format
+		// The same as before, but in MD format
 		System.setOut(fileOutMD);
 		System.out.print("|Location");
 		String s = "|-";
@@ -490,6 +490,7 @@ public class MyUtils {
 			forecaster.getTSLagMaker().setMinLag(7);
 			forecaster.getTSLagMaker().setMaxLag(7);
 			forecaster.getTSLagMaker().setAdjustForTrends(true);
+			forecaster.getTSLagMaker().setAddDayOfWeek(true);
 			forecaster.getTSLagMaker().setAddMonthOfYear(true);
 			forecaster.getTSLagMaker().setAddQuarterOfYear(true);
 
@@ -500,7 +501,8 @@ public class MyUtils {
 			forecaster.primeForecaster(dataset);
 			forecaster.setCalculateConfIntervalsForForecasts(1);
 			// forecast = forecaster.forecast(100, stream);
-			forecast = forecaster.forecast(100);
+			forecast = forecaster.forecast(100); // <-- prediction values
+			System.out.println(forecaster.toString());
 
 			long finish = System.currentTimeMillis();
 
@@ -528,6 +530,7 @@ public class MyUtils {
 			p.setPredict(predictDouble);
 			p.setDate(predictDate);
 			predict.add(p);
+			forecast.clear();
 		}
 
 		// Print result
