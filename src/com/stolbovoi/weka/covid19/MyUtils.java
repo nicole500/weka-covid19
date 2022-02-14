@@ -1,4 +1,4 @@
-package com.stolbovoi.weka.cobid19;
+package com.stolbovoi.weka.covid19;
 
 import java.io.File;
 import java.io.FileNotFoundException;

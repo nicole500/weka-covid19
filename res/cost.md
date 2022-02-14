@@ -1,6 +1,6 @@
 |algorithm_name|elapsed(ms)
 |-|-
-|GaussianProcesses|723
-|MultilayerPerceptron|1791
-|LinearRegression|192
-|SMOreg|1128
+|GaussianProcesses|1030
+|MultilayerPerceptron|2695
+|LinearRegression|177
+|SMOreg|1298
